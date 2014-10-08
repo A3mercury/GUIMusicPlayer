@@ -5,7 +5,11 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniPlayerWpf", "MiniPlayerWpf\MiniPlayerWpf.csproj", "{F7ECAA08-1D74-4731-897C-194039A08512}"
 EndProject
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicLibUnitTest", "MusicLibUnitTest\MusicLibUnitTest.csproj", "{A36C4315-2834-49EF-8783-89FEF0E6567B}"
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicLibUnitTests", "MusicLibUnitTests\MusicLibUnitTests.csproj", "{25E53FE3-C2C7-4241-8309-663C7ED71960}"
+>>>>>>> f2d6e532de542c365223a583a1f190406e0d737a
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +21,17 @@ Global
 		{F7ECAA08-1D74-4731-897C-194039A08512}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7ECAA08-1D74-4731-897C-194039A08512}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7ECAA08-1D74-4731-897C-194039A08512}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 		{A36C4315-2834-49EF-8783-89FEF0E6567B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A36C4315-2834-49EF-8783-89FEF0E6567B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A36C4315-2834-49EF-8783-89FEF0E6567B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A36C4315-2834-49EF-8783-89FEF0E6567B}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{25E53FE3-C2C7-4241-8309-663C7ED71960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25E53FE3-C2C7-4241-8309-663C7ED71960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25E53FE3-C2C7-4241-8309-663C7ED71960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25E53FE3-C2C7-4241-8309-663C7ED71960}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> f2d6e532de542c365223a583a1f190406e0d737a
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

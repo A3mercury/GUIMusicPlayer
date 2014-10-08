@@ -21,10 +21,10 @@ namespace MiniPlayerWpf
             PrintAllTables();
 
             // Get a list of all song IDs
-            DataTable songs = musicDataSet.Tables["song"];
-            var ids = from row in songs.AsEnumerable()
-                      orderby row["id"]
-                      select row["id"].ToString();
+            //DataTable songs = musicDataSet.Tables["song"];
+            //var ids = from row in songs.AsEnumerable()
+            //          orderby row["id"]
+            //          select row["id"].ToString();
         }
 
         public void PrintAllTables()
@@ -121,7 +121,6 @@ namespace MiniPlayerWpf
         // was updated, false if it could not because the song ID was not found.
         public bool UpdateSong(int songId, Song song)
         {
-            //DataTable table = musicDataSet.Tables["song"];
             bool result = false;
 
             DataTable table = musicDataSet.Tables["song"];
@@ -150,10 +149,14 @@ namespace MiniPlayerWpf
         {
             bool result = true;
             DataTable table = musicDataSet.Tables["song"];
+<<<<<<< HEAD
             if (GetSong(songId) == null)
                 result = false;
             else
             {
+=======
+            if(GetSong(songId) != null)
+>>>>>>> f2d6e532de542c365223a583a1f190406e0d737a
                 table.Rows.Remove(table.Rows.Find(songId));
 
                 // Remove from playlist_song every occurance of songId.
