@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MiniPlayerWpf
 {
-    class MusicLib
+    public class MusicLib
     {
         private DataSet musicDataSet;
 
@@ -82,23 +82,39 @@ namespace MiniPlayerWpf
         public Song GetSong(int songId) 
         {
             DataTable table = musicDataSet.Tables["song"];
-            Song s = null;
+            Song s = new Song();
+
 
             foreach (DataRow row in table.Select("id=" + songId))
             {
-                if(row["id"].ToString() == songId.ToString())
+                s.Title = row["title"].ToString();
+                s.Artist = row["artist"].ToString();
+                s.Album = row["album"].ToString();
+                s.Filename = row["filename"].ToString();
+                s.Length = row["length"].ToString();
+                s.Genre = row["genre"].ToString();
+                s.Id = Convert.ToInt32(row["id"]);
+
+                if(s.Id == songId)
                 {
-                    s = new Song();
-                    s.Title = row["title"].ToString();
-                    s.Artist = row["artist"].ToString();
-                    s.Album = row["album"].ToString();
-                    s.Filename = row["filename"].ToString();
-                    s.Length = row["length"].ToString();
-                    s.Genre = row["genre"].ToString();
+                    return s;
                 }
             }
 
-            return s;
+            //foreach (DataRow row in table.Select("id=" + songId))
+            //{
+            //    if (row["id"].ToString() == songId.ToString())
+            //    {
+            //        s.Title = row["title"].ToString();
+            //        s.Artist = row["artist"].ToString();
+            //        s.Album = row["album"].ToString();
+            //        s.Filename = row["filename"].ToString();
+            //        s.Length = row["length"].ToString();
+            //        s.Genre = row["genre"].ToString();
+            //    }
+            //}
+
+            return null;
         }
 
         // Update the given song with the given song ID. Returns true if the song 
@@ -132,25 +148,30 @@ namespace MiniPlayerWpf
         // successfully deleted, false if the song ID was not found. 
         public bool DeleteSong(int songId) 
         {
-            bool result = false;
+            bool result = true;
             DataTable table = musicDataSet.Tables["song"];
-            table.Rows.Remove(table.Rows.Find(songId));
+            if (GetSong(songId) == null)
+                result = false;
+            else
+            {
+                table.Rows.Remove(table.Rows.Find(songId));
 
-            // Remove from playlist_song every occurance of songId.
-            // Add rows to a separate list before deleting because we'll get an exception
-            // if we try to delete more than one row while looping through table.Rows
+                // Remove from playlist_song every occurance of songId.
+                // Add rows to a separate list before deleting because we'll get an exception
+                // if we try to delete more than one row while looping through table.Rows
 
-            List<DataRow> rows = new List<DataRow>();
-            table = musicDataSet.Tables["playlist_song"];
-            foreach (DataRow row in table.Rows)
-                if (row["song_id"].ToString() == songId.ToString())
-                    rows.Add(row);
+                List<DataRow> rows = new List<DataRow>();
+                table = musicDataSet.Tables["playlist_song"];
+                foreach (DataRow row in table.Rows)
+                    if (row["song_id"].ToString() == songId.ToString())
+                        rows.Add(row);
 
-            foreach (DataRow row in rows)
-                row.Delete();
+                foreach (DataRow row in rows)
+                    row.Delete();
 
-            if(GetSong(songId) == null)
-                result = true;
+                //if (GetSong(songId) == null)
+                //    result = true;
+            }
 
             return result;
         }

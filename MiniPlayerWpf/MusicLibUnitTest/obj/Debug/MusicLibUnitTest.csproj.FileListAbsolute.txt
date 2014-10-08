@@ -1,0 +1,8 @@
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MusicLibUnitTest\bin\Debug\MusicLibUnitTest.dll
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MusicLibUnitTest\bin\Debug\MusicLibUnitTest.pdb
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MusicLibUnitTest\bin\Debug\MiniPlayerWpf.exe
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MusicLibUnitTest\bin\Debug\taglib-sharp.dll
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MusicLibUnitTest\bin\Debug\MiniPlayerWpf.pdb
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MusicLibUnitTest\obj\Debug\MusicLibUnitTest.csprojResolveAssemblyReference.cache
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MusicLibUnitTest\obj\Debug\MusicLibUnitTest.dll
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MusicLibUnitTest\obj\Debug\MusicLibUnitTest.pdb
