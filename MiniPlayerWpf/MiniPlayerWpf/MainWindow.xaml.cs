@@ -22,69 +22,30 @@ namespace MiniPlayerWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DataSet musicDataSet;
         private MediaPlayer mediaPlayer;
+        private MusicLib musicLib;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            musicLib = new MusicLib();
             mediaPlayer = new MediaPlayer();
-
-            try
-            {
-                musicDataSet = new DataSet();
-                musicDataSet.ReadXmlSchema("music.xsd");
-                musicDataSet.ReadXml("music.xml");
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Error loading file: " + e.Message);
-            }
-
-            PrintAllTables();
-
-            Console.WriteLine("Total songs = " + musicDataSet.Tables["song"].Rows.Count);
-
-            // Get a list of all song IDs
-            DataTable songs = musicDataSet.Tables["song"];
-            var ids = from row in songs.AsEnumerable()
-                      orderby row["id"]
-                      select row["id"].ToString();
 
             // Put the ids to a ObservableCollection which has a Remove method for use later.
             // The UI will update itself automatically if any changes are made to this collection.
-            ObservableCollection<string> items = new ObservableCollection<string>(ids);     
+            ObservableCollection<string> items = new ObservableCollection<string>(musicLib.SongIds);
 
             // Bind the song IDs to the combo box
             songIdComboBox.ItemsSource = items;
-            
+
             // Select the first item
             if (songIdComboBox.Items.Count > 0)
             {
                 songIdComboBox.SelectedItem = songIdComboBox.Items[0];
                 deleteButton.IsEnabled = true;
             }
-        }
-
-        private void PrintAllTables()
-        {
-            foreach (DataTable table in musicDataSet.Tables)
-            {
-                Console.WriteLine("Table name = " + table.TableName);
-                foreach (DataRow row in table.Rows)
-                {
-                    Console.WriteLine("Row:");
-                    int i = 0;
-                    foreach (Object item in row.ItemArray)
-                    {
-                        Console.WriteLine(" " + table.Columns[i].Caption + "=" + item);
-                        i++;
-                    }
-                }
-                Console.WriteLine();
-            }
-        }
+        }        
 
         private void openButton_Click(object sender, RoutedEventArgs e)
         {
@@ -147,23 +108,21 @@ namespace MiniPlayerWpf
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Adding song");
+            // Add the selected file to the music library
+            Song s = new Song
+            {
+                Title = titleTextBox.Text,
+                Artist = artistTextBox.Text,
+                Album = albumTextBox.Text,
+                Genre = genreTextBox.Text,
+                Length = lengthTextBox.Text,
+                Filename = filenameTextBox.Text
+            };
 
-            // Add the selected file to the song table
-            DataTable table = musicDataSet.Tables["song"];
-            DataRow row = table.NewRow();
+            string id = musicLib.AddSong(s).ToString();
 
-            row["title"] = titleTextBox.Text;
-            row["artist"] = artistTextBox.Text;
-            row["album"] = albumTextBox.Text;
-            row["filename"] = filenameTextBox.Text;
-            row["length"] = lengthTextBox.Text;
-            row["genre"] = genreTextBox.Text;
-            table.Rows.Add(row);
-
-            // Now that the id has been set, add it to the combo box
+            // Add the song ID to the combo box
             songIdComboBox.IsEnabled = true;
-            string id = row["id"].ToString();
             (songIdComboBox.ItemsSource as ObservableCollection<string>).Add(id);
             songIdComboBox.SelectedIndex = songIdComboBox.Items.Count - 1;
 
@@ -173,20 +132,27 @@ namespace MiniPlayerWpf
 
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
-            string songId = songIdComboBox.SelectedItem.ToString();
+            int songId = Convert.ToInt32(songIdComboBox.SelectedItem);
             Console.WriteLine("Updating song " + songId);
 
-            DataTable table = musicDataSet.Tables["song"];
-
-            // Only one row should be selected
-            foreach (DataRow row in table.Select("id=" + songId))
+            Song s = new Song()
             {
-                row["title"] = titleTextBox.Text;
-                row["artist"] = artistTextBox.Text;
-                row["album"] = albumTextBox.Text;
-                row["genre"] = genreTextBox.Text;
-                row["length"] = lengthTextBox.Text;
-                row["filename"] = filenameTextBox.Text;
+                Title = titleTextBox.Text,
+                Artist = artistTextBox.Text,
+                Album = albumTextBox.Text,
+                Genre = genreTextBox.Text,
+                Length = lengthTextBox.Text,
+                Filename = filenameTextBox.Text
+            };
+
+            if(musicLib.UpdateSong(songId, s))
+            {
+                titleTextBox.Text = s.Title;
+                artistTextBox.Text = s.Artist;
+                albumTextBox.Text = s.Album;
+                genreTextBox.Text = s.Genre;
+                lengthTextBox.Text = s.Length;
+                filenameTextBox.Text = s.Filename;
             }
         }
 
@@ -195,42 +161,31 @@ namespace MiniPlayerWpf
             if (MessageBox.Show("Are you sure you want to delete this song?", "MiniPlayer", 
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                string songId = songIdComboBox.SelectedItem.ToString();
+                int songId = Convert.ToInt32(songIdComboBox.SelectedItem);
                 Console.WriteLine("Deleting song " + songId);
 
-                // Search the primary key for the selected song and delete it from 
-                // the song table
-                DataTable table = musicDataSet.Tables["song"];
-                table.Rows.Remove(table.Rows.Find(songId));
-
-                // Remove from playlist_song every occurance of songId.
-                // Add rows to a separate list before deleting because we'll get an exception
-                // if we try to delete more than one row while looping through table.Rows
-
-                List<DataRow> rows = new List<DataRow>();
-                table = musicDataSet.Tables["playlist_song"];
-                foreach (DataRow row in table.Rows)
-                    if (row["song_id"].ToString() == songId.ToString())
-                        rows.Add(row);
-
-                foreach (DataRow row in rows)
-                    row.Delete();
-
-                // Remove the song from the list box and select the next item
-                (songIdComboBox.ItemsSource as ObservableCollection<string>).Remove(
-                    songIdComboBox.SelectedItem.ToString());
-                if (songIdComboBox.Items.Count > 0)
-                    songIdComboBox.SelectedItem = songIdComboBox.Items[0];
+                if (musicLib.DeleteSong(songId))
+                {
+                    // Remove the song from the list box and select the next item
+                    (songIdComboBox.ItemsSource as ObservableCollection<string>).Remove(
+                        songIdComboBox.SelectedItem.ToString());
+                    if (songIdComboBox.Items.Count > 0)
+                        songIdComboBox.SelectedItem = songIdComboBox.Items[0];
+                    else
+                    {
+                        // No more songs to display
+                        deleteButton.IsEnabled = false;
+                        titleTextBox.Text = "";
+                        artistTextBox.Text = "";
+                        albumTextBox.Text = "";
+                        genreTextBox.Text = "";
+                        lengthTextBox.Text = "";
+                        filenameTextBox.Text = "";
+                    }
+                }
                 else
                 {
-                    // No more songs to display
-                    deleteButton.IsEnabled = false;
-                    titleTextBox.Text = "";
-                    artistTextBox.Text = "";
-                    albumTextBox.Text = "";
-                    genreTextBox.Text = "";
-                    lengthTextBox.Text = "";
-                    filenameTextBox.Text = "";
+                    Console.WriteLine("There was a problem deleting song with the id: " + songId);
                 }
             }
         }
@@ -247,7 +202,7 @@ namespace MiniPlayerWpf
 
         private void showDataButton_Click(object sender, RoutedEventArgs e)
         {
-            PrintAllTables();
+            musicLib.PrintAllTables();
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
@@ -255,7 +210,7 @@ namespace MiniPlayerWpf
             // Save music.xml in the same directory as the exe
             string filename = "music.xml";
             Console.WriteLine("Saving " + filename);
-            musicDataSet.WriteXml(filename);
+            musicLib.Save(filename);
         }
 
         private void songIdComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -263,18 +218,19 @@ namespace MiniPlayerWpf
             // Display the selected song
             Console.WriteLine("Load song " + songIdComboBox.SelectedItem);
             int songId = Convert.ToInt32(songIdComboBox.SelectedItem);
-            DataTable table = musicDataSet.Tables["song"];
 
-            // Only one row should be selected
-            foreach (DataRow row in table.Select("id=" + songId))
+            Song s = musicLib.GetSong(songId);
+
+            if (s != null)
             {
-                titleTextBox.Text = row["title"].ToString();
-                artistTextBox.Text = row["artist"].ToString();
-                albumTextBox.Text = row["album"].ToString();
-                genreTextBox.Text = row["genre"].ToString();
-                lengthTextBox.Text = row["length"].ToString();
-                filenameTextBox.Text = row["filename"].ToString();
-                mediaPlayer.Open(new Uri(filenameTextBox.Text)); 
+                titleTextBox.Text = s.Title;
+                artistTextBox.Text = s.Artist;
+                albumTextBox.Text = s.Album;
+                genreTextBox.Text = s.Genre;
+                lengthTextBox.Text = s.Length;
+                filenameTextBox.Text = s.Filename;
+                if(filenameTextBox.Text != "")
+                    mediaPlayer.Open(new Uri(filenameTextBox.Text));
             }
         }
     }

@@ -14,3 +14,19 @@ c:\users\fmccown\documents\visual studio 2013\Projects\MiniPlayerWpf\MiniPlayerW
 c:\users\fmccown\documents\visual studio 2013\Projects\MiniPlayerWpf\MiniPlayerWpf\bin\Debug\policy.2.0.taglib-sharp.dll
 c:\users\fmccown\documents\visual studio 2013\Projects\MiniPlayerWpf\MiniPlayerWpf\bin\Debug\taglib-sharp.dll
 c:\users\fmccown\documents\visual studio 2013\Projects\MiniPlayerWpf\MiniPlayerWpf\bin\Debug\policy.2.0.taglib-sharp.config
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\bin\Debug\MiniPlayerWpf.exe.config
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\obj\Debug\MiniPlayerWpf.exe
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\obj\Debug\MiniPlayerWpf.pdb
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\bin\Debug\MiniPlayerWpf.exe
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\bin\Debug\MiniPlayerWpf.pdb
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\bin\Debug\policy.2.0.taglib-sharp.dll
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\bin\Debug\taglib-sharp.dll
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\bin\Debug\policy.2.0.taglib-sharp.config
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\obj\Debug\MiniPlayerWpf.csprojResolveAssemblyReference.cache
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\obj\Debug\MainWindow.baml
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\obj\Debug\MainWindow.g.cs
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\obj\Debug\App.g.cs
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\obj\Debug\MiniPlayerWpf_MarkupCompile.cache
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\obj\Debug\MiniPlayerWpf.g.resources
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\obj\Debug\MiniPlayerWpf.Properties.Resources.resources
+C:\Users\Mercury\Documents\GUIMusicPlayer\MiniPlayerWpf\MiniPlayerWpf\obj\Debug\MiniPlayerWpf.csproj.GenerateResource.Cache

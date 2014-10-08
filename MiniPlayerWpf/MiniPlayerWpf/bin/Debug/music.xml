@@ -1,26 +1,8 @@
 <?xml version="1.0" standalone="yes"?>
 <music>
   <song>
-    <id>1</id>
-    <title>Classical Masterpieces</title>
-    <artist>Ode To Joy</artist>
-    <album />
-    <filename>C:\mymusic\ode_to_joy.mp3</filename>
-    <length>20</length>
-    <genre>Classical</genre>
-  </song>
-  <song>
-    <id>2</id>
-    <title>Lets Fall in Love</title>
-    <artist>Frank Sinatra</artist>
-    <album>?</album>
-    <filename>C:\mymusic\Lets Fall in Love.mp3</filename>
-    <length />
-    <genre />
-  </song>
-  <song>
     <id>3</id>
-    <title>Policy of Truth</title>
+    <title>asdfasdfsadfasdfasf</title>
     <artist>Depeche Mode</artist>
     <album>Violator</album>
     <filename>C:\mymusic\Depche Mode - Policy of truh.mp3</filename>
@@ -71,6 +53,15 @@
     <length>2:21</length>
     <genre>Pop</genre>
   </song>
+  <song>
+    <id>13</id>
+    <title>Kansas City (Re-Recorded / Remastered)</title>
+    <artist>Various Artists</artist>
+    <album>The Greatest 1 Hit Wonders (Re-Recorded / Remastered Versions)</album>
+    <filename>C:\temp\Kansas-City.mp3</filename>
+    <length>2:21</length>
+    <genre>Pop</genre>
+  </song>
   <playlist>
     <name>Cool stuff</name>
   </playlist>
@@ -78,23 +69,8 @@
     <name>Quiet music</name>
   </playlist>
   <playlist_song>
-    <song_id>1</song_id>
-    <playlist_name>Cool stuff</playlist_name>
-    <position>1</position>
-  </playlist_song>
-  <playlist_song>
     <song_id>3</song_id>
     <playlist_name>Cool stuff</playlist_name>
     <position>2</position>
-  </playlist_song>
-  <playlist_song>
-    <song_id>2</song_id>
-    <playlist_name>Cool stuff</playlist_name>
-    <position>3</position>
-  </playlist_song>
-  <playlist_song>
-    <song_id>2</song_id>
-    <playlist_name>Quiet music</playlist_name>
-    <position>1</position>
   </playlist_song>
 </music>
